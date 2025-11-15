@@ -1,0 +1,26 @@
+src/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.dll
+
+venv/
+env/
+.venv/
+
+# Model weights (large)
+models/
+!models/.keep
+
+data/*.npy
+data/*.tsv
+data/*.txt
+data/*.csv
+
+.env
+*.env
+*.ini
+*.cfg
+*.config

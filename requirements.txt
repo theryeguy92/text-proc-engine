@@ -1,0 +1,17 @@
+torch
+transformers
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+hdbscan
+python-dotenv
+pyspark
+jupyter
+notebook
+matplotlib
+seaborn
+plotly
+datasets
+sentencepiece
