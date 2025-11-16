@@ -1,14 +1,15 @@
 # src/train_ogc_clip.py
+import os
 import math
 from typing import List
 
 import torch
 from torch import nn, optim
 from torch.utils.data import DataLoader
-
 from transformers import CLIPModel, CLIPProcessor
 
-from ogc_torch_dataset import OGCIterableDataset
+from text_proc_engine.datasets.ogc_torch_dataset import OGCIterableDataset
+from text_proc_engine.config import BASE_DIR
 
 
 def get_device():
@@ -85,10 +86,11 @@ def main():
             print(f"[train] step {steps}/{max_steps} | loss={loss.item():.4f}")
 
     # save checkpoint
-    save_path = "./models/ogc_clip_finetuned"
+    save_path = os.path.join(BASE_DIR, "models", "ogc_clip_finetuned")
+    os.makedirs(save_path, exist_ok=True)
     model.save_pretrained(save_path)
     processor.save_pretrained(save_path)
-    print(f"[train] Saved finetuned model to {save_path}")
+
 
 
 if __name__ == "__main__":

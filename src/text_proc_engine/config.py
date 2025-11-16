@@ -3,7 +3,8 @@ from dotenv import load_dotenv
 import pathlib
 
 # Project root:
-BASE_DIR = pathlib.Path(__file__).resolve().parents[1]
+BASE_DIR = pathlib.Path(__file__).resolve().parents[2]
+
 
 # Load .env from project root
 env_path = BASE_DIR / ".env"

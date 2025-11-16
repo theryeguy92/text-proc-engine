@@ -9,7 +9,7 @@ from PIL import Image
 import torch
 from transformers import CLIPModel, CLIPProcessor
 
-from text_proc_engine.config import OUT_DIR_PDF  # path to your PDFs dir
+from text_proc_engine.config import BASE_DIR, OUT_DIR_PDF
 
 
 def get_device():

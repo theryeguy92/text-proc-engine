@@ -8,6 +8,7 @@ from datasets import load_dataset
 from PIL import Image
 import torch
 from transformers import CLIPModel, CLIPProcessor
+from text_proc_engine.models.clip_encoder import CLIPDualEncoder
 
 # As per usual, check for CUDA
 
@@ -19,50 +20,6 @@ def get_device():
 # config
 # check output dir
 print(OUT_DIR_OGC)
-
-
-
-# for computer vision tasks
-class CLIPDualEncoder:
-    def __init__(self, model_name: str = "openai/clip-vit-base-patch32"):
-        self.device = get_device()
-        print(f"[clip] Loading {model_name} on {self.device}")
-        self.model = CLIPModel.from_pretrained(model_name)
-        self.processor = CLIPProcessor.from_pretrained(model_name)
-        self.model.to(self.device)
-        self.model.eval()
-    
-    @torch.no_grad()
-
-    def embed_batch(self, texts, images):
-        """
-        texts: list[str]
-        images: list[PIL.Image.Image]
-        Returns: (text_embs, image_embs) as np arrays (batch, dim)
-        """
-        inputs = self.processor(
-            text=texts,
-            images=images,
-            return_tensors="pt",
-            padding=True,
-            truncation=True,
-        ).to(self.device)
-
-        outputs = self.model(
-            input_ids=inputs["input_ids"],
-            attention_mask=inputs["attention_mask"],
-            pixel_values=inputs["pixel_values"],
-        )
-
-        # CLIP returns separate text/image features
-        text_feats = outputs.text_embeds  # (B, D)
-        img_feats = outputs.image_embeds  # (B, D)
-
-        # Normalize for cosine similarity
-        text_feats = text_feats / text_feats.norm(dim=-1, keepdim=True)
-        img_feats = img_feats / img_feats.norm(dim=-1, keepdim=True)
-
-        return text_feats.cpu().numpy(), img_feats.cpu().numpy()
     
 def process_shard(
     shard_id: int,
