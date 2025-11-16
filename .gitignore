@@ -1,4 +1,6 @@
 src/__pycache__/
+src/text_proc_engine/__pycache__/
+src/text_proc_engine/training/__pycache__/
 *.py[cod]
 *.pyo
 *.pyd
@@ -13,6 +15,7 @@ env/
 # Model weights (large)
 models/
 !models/.keep
+src/text_proc_engine/models
 
 data/*.npy
 data/*.tsv
