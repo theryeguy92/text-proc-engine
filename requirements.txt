@@ -1,4 +1,5 @@
-torch
+--extra-index-url https://download.pytorch.org/whl/cu128
+
 transformers
 fastapi
 uvicorn
@@ -15,3 +16,13 @@ seaborn
 plotly
 datasets
 sentencepiece
+pypdf
+huggingface_hub
+pillow
+pymupdf
+
+# GPU-enabled PyTorch for RTX 5080 (Blackwell sm_120)
+# Pro tip, depending on your graphics card, install torch this way
+torch==2.9.1+cu128
+torchvision==0.20.1+cu128
+torchaudio==2.9.1+cu128
